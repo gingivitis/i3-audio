@@ -1,13 +1,13 @@
 'use strict'
 
-import keymirror from 'keymirror-symbol'
+import keymirror from 'keymirror'
 
 export
 default keymirror({
-    PLAY_PAUSE: null,
+    TOGGLE: null,
     PREVIOUS: null,
     NEXT: null,
     LOVE: null,
     HATE: null,
-    CURRENT_SONG: null
+    CURRENT: null
 })
