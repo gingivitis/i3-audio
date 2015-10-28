@@ -16,9 +16,11 @@
 'use strict'
 
 import net from 'net'
-import config from './config'
-import constants from './constants'
 import program from 'commander'
+import config from './config'
+import ActionTypes from './constants'
+
+var socket
 
 program
     .version('0.0.1')
@@ -31,29 +33,25 @@ program
     .parse(process.argv)
 
 if (program.toggle) {
-
+    send(ActionTypes.TOGGLE)
 } else if (program.stop) {
-
+    send(ActionTypes.STOP)
 } else if (program.next) {
-
+    send(ActionTypes.NEXT)
 } else if (program.previous) {
-
+    send(ActionTypes.PREVIOUS)
 } else if (program.love) {
-
+    send(ActionTypes.LOVE)
 } else if (program.hate) {
-
+    send(ActionTypes.HATE)
 } else {
     program.outputHelp()
     process.exit(1)
 }
 
-let client = net.connect(config.port, () => {
-    console.log(`Connected to server on port ${config.port}`)
-})
-
-client.setEncoding('utf8')
-
-client.on('data', data => {
-    console.log('server says:', data)
-    client.end()
-})
+function send(action) {
+    let client = net.connect(config.port, () => {
+        client.write(action, () => client.end())
+    })
+    client.on('error', (err) => console.error(err))
+}
