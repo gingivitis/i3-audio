@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "keymirror-symbol": "^1.0.2"
+    "flux": "^2.1.1",
+    "keymirror": "^0.1.1"
   }
 }
